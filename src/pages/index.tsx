@@ -36,45 +36,6 @@ export const query = graphql`
         description
       }
     }
-    allContentfulBlogPost {
-      nodes {
-        id
-        title
-        headerImage {
-          gatsbyImageData
-        }
-        description
-        text {
-          raw
-          references {
-            ... on ContentfulAsset {
-              contentful_id
-              title
-              description
-              gatsbyImageData(width: 1000)
-              __typename
-            }
-          }
-        }
-      }
-    }
-    allContentfulTutorialSeries {
-      nodes {
-        id
-        mTitle
-        mSlug
-        mImage {
-          gatsbyImageData
-        }
-        tutorial {
-          id
-          mTitle
-          mSlug
-          mIndex
-          mDescription
-        }
-      }
-    }
   }
 `;
 
@@ -82,29 +43,29 @@ const IndexPage: React.FC<IndexPageProps> = (props: IndexPageProps) => {
   console.log("IndexPage");
   console.log(props);
   console.log(props.data.site.siteMetadata.title);
-
-  const series = props.data.allContentfulTutorialSeries.nodes;
+  
 
   return (
     <Layout pageTitle="Home">
       <title>Home Page</title>
       <h1>دایان برگ</h1>
       <p>دایان برگ تولید کننده قارچ صدفی و شاه صدفی</p>
-      <p className="text-3xl mt-16 mb-4">تازه‌ها</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {props.data.allContentfulBlogPost.nodes.map((node) => (
-          <PostCard
-            key={node.id}
-            item={node}
-            to={`/blog/${node.id}`}
-          ></PostCard>
-        ))}
-      </div>
     </Layout>
   );
 };
 
 export default IndexPage;
+
+{/* <p className="text-3xl mt-16 mb-4">تازه‌ها</p>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  {props.data.allContentfulBlogPost.nodes.map((node) => (
+    <PostCard
+      key={node.id}
+      item={node}
+      to={`/blog/${node.id}`}
+    ></PostCard>
+  ))}
+</div> */}
 
 // for more info:
 // https://www.gatsbyjs.com/plugins/gatsby-plugin-typescript/
